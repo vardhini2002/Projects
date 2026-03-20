@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Nursery</title>
+<head>
+  <meta charset="UTF-8">
+  <title>GreenLeaf Nursery</title>
 
-    <link rel="stylesheet" href="css/nursery.css" />
+  <link rel="stylesheet" href="css/nursery.css">
 
-    <!-- GSAP -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-  </head>
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+</head>
 
-  <body>
-    <div class="container">
-      <!-- LEFT -->
-      <div class="plant-container">
-        <svg
+<body>
+
+<!-- 🌿 NAVBAR -->
+<nav class="navbar">
+  <h2>GreenLeaf 🌿</h2>
+  <ul>
+    <li>Home</li>
+    <li>Plants</li>
+    <li>Pre-Book</li>
+    <li>About</li>
+  </ul>
+</nav>
+
+<!-- 🌸 HERO -->
+<div class="container">
+
+  <!-- LEFT SVG -->
+  <div class="plant-container">
+    <!-- KEEP YOUR SVG HERE (already correct) -->
+    <!-- just reduce size -->
+    <svg viewBox="0 0 450 1000" style="width: 60%;">
           width="1000"
           height="2000"
           viewBox="0 0 450 1000"
@@ -76,18 +92,88 @@
 
           <!-- BUD -->
           <g id="bud" opacity="0"></g>
-        </svg>
-      </div>
+    </svg>
+  </div>
 
-      <!--  RIGHT -->
-      <div class="content">
-        <section class="section"><h1>Bloom</h1></section>
-        <section class="section"><h1>Bud</h1></section>
-        <section class="section"><h1>Leaves</h1></section>
-        <section class="section"><h1>Sapling</h1></section>
+  <!-- RIGHT TEXT -->
+  <div class="content">
+
+    <section class="section">
+      <div>
+        <h1>Bloom with Nature</h1>
+        <p>Discover plants that bring life to your space.</p>
       </div>
+    </section>
+
+    <section class="section">
+      <div>
+        <h1>Pre-Book Plants</h1>
+        <p>Reserve rare and seasonal plants before they arrive.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div>
+        <h1>Healthy Growth</h1>
+        <p>All plants are nurtured with care and quality soil.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div>
+        <h1>Start Small</h1>
+        <p>From saplings to full-grown plants, grow your journey.</p>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- 🌿 PLANT LIST -->
+<section class="plants">
+  <h2>Our Plants</h2>
+
+  <div class="plant-grid">
+    <div class="card">
+      <h3>Orchid</h3>
+      <p>Elegant flowering plant</p>
     </div>
 
-    <script src="js/nursery.js"></script>
-  </body>
+    <div class="card">
+      <h3>Snake Plant</h3>
+      <p>Low maintenance indoor plant</p>
+    </div>
+
+    <div class="card">
+      <h3>Money Plant</h3>
+      <p>Symbol of prosperity</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🌸 PRE BOOK -->
+<section class="prebook">
+  <h2>Pre-Book Rare Plants</h2>
+  <p>Get notified when special plants arrive.</p>
+
+  <input type="text" placeholder="Enter your email">
+  <button>Pre-Book Now</button>
+</section>
+
+<!-- 🌿 ABOUT -->
+<section class="about">
+  <h2>About Us</h2>
+  <p>
+    We grow plants with love and deliver them fresh to your doorstep.
+  </p>
+</section>
+
+<!-- 🌸 FOOTER -->
+<footer>
+  <p>© 2026 GreenLeaf Nursery</p>
+</footer>
+
+<script src="js/nursery.js"></script>
+
+</body>
 </html>
