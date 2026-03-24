@@ -1,11 +1,14 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main class="app-shell">
+    <router-view />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.app-shell {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+</style>
