@@ -1,41 +1,17 @@
 import './App.css'
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
-import Dashboard from './components/Dashboard'
-import EmployeeCard from './components/EmployeeCard'
+import Employee from './Employee.jsx'
+import NavBar from './components/Navbar.jsx'
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-const employees = [
-    {
-        id: 1,
-        name: "Harsha",
-        role: "React Developer"
-    },
-    {
-        id: 2,
-        name: "John",
-        role: "PHP Developer"
-    },
-    {
-        id: 3,
-        name: "Priya",
-        role: "UI Designer"
-    }
-];
+    
   return (
-    <div>
-      <Navbar />
-      <Sidebar />
-      <Dashboard />
-      <h1>Employee Management System</h1>
-      <p>Welcome Harsha!</p>
-      {
-        employees.map((employee)=>{
-          return <EmployeeCard employee={employee} key={employee.id}/>
-        })
-      }
-    </div>
+	<Routes>
+		<Route path="/" element={<Employee />} />
+		<Route path="/employees" element={<NavBar />} />
+	</Routes>
   )
 }
 
-export default App
+
+export default App;
