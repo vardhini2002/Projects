@@ -1,9 +1,9 @@
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dashboard from './components/Dashboard'
-import React, { useState } from 'react';
+import { useState , useEffect } from 'react';
 import EmployeeList from './EmployeeList';
-import {getEmployees} from "../services/employeeService";
+import {getEmployees} from "./services/employeeService";
 function Employee() {
     const [employees, setEmployees] = useState([]);
     const [newEmployee, setNewEmployee] = useState({ name: '', role: '' });
