@@ -1,0 +1,17 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Harsha",
+      "role": "Developer",
+      "experience": "2 Years"
+    },
+    {
+      "id": "2",
+      "name": "John",
+      "role": "Manager",
+      "experience": "5 Years"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
