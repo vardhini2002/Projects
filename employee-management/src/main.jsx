@@ -5,15 +5,27 @@ import {Provider}  from "react-redux";
 import {store} from "./redux/store";
 import './index.css'
 import App from './App.jsx'
+import {
+QueryClient,
+QueryClientProvider
+}
+from "@tanstack/react-query";
+
+
+const queryClient =
+new QueryClient();
+
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode> 
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </StrictMode>
+   <StrictMode> 
+    	<BrowserRouter>
+      		<Provider store={store}>
+        		<QueryClientProvider client={queryClient}>
+          			<App />
+        		</QueryClientProvider>
+      		</Provider>
+    	</BrowserRouter>
+  	</StrictMode>
 )
 {/* StrictMode is a tool for highlighting potential problems in an application. 
   Like Fragment, StrictMode does not render any visible UI. 
