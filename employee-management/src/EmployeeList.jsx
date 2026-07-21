@@ -1,5 +1,5 @@
 import EmployeeCard from './components/EmployeeCard'
-import { fetchEmployees, deleteEmployeeAsync, editEmployeeAsync } from "./redux/slice/EmployeeSlice";
+import { deleteEmployeeAsync, editEmployeeAsync } from "./redux/slice/EmployeeSlice";
 import { useDispatch, useSelector } from 'react-redux';
 function EmployeeList() {
 
@@ -17,15 +17,9 @@ function EmployeeList() {
         const emp = employees.find(employee => employee.id === empId);
 
         if (!emp) return;
-        const updatedName = prompt(
-            "Enter new name:",
-            emp.name
-        );
-
+        const updatedName = prompt( "Enter new name:", emp.name);
         if (updatedName === null) return;
-
         const updatedRole = prompt( "Enter new role:", emp.role);
-
         if (updatedRole === null) return;
 
         dispatch(

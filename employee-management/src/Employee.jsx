@@ -6,27 +6,27 @@ import EmployeeList from './EmployeeList';
 import { useState , useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 
-import {addEmployeeAsync} from './redux/slice/EmployeeSlice';
-import {getEmployees} from "./services/employeeService";
+import {addEmployeeAsync, fetchEmployeesAsync} from './redux/slice/EmployeeSlice';
 
 function Employee() {
     const [newEmployee, setNewEmployee] = useState({ name: '', role: '' });
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getEmployees()
-            .then(response => {
-                response.data.forEach(employee => {
-                    dispatch(addEmployeeAsync(employee));
-                });
-
-            });
-
+        dispatch(fetchEmployeesAsync());
     }, [dispatch]);
 
     function handleAddEmployee() {
+
+        if (!newEmployee.name.trim() || !newEmployee.role.trim()) {
+            alert("Please enter name and role");
+            return;
+        }
         dispatch(addEmployeeAsync(newEmployee));
-        setNewEmployee({ name: '', role: '' });
+        setNewEmployee({
+            name:"",
+            role:""
+        });
     }
 
 return(

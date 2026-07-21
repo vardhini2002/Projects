@@ -1,4 +1,4 @@
-import './App.css'
+// import './App.css'
 import Employee from './Employee.jsx'
 import Login from './Login.jsx'
 import { Routes, Route } from "react-router-dom";
@@ -11,8 +11,8 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Employee />} />
-		<Route path="/employees" element={<Employee />} />
-	</Routes>
+		    <Route path="/employees" element={<Employee />} />
+	    </Routes>
 	</AuthProvider>
   )
 }
