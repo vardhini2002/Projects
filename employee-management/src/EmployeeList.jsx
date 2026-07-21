@@ -1,22 +1,42 @@
 import EmployeeCard from './components/EmployeeCard'
+import { fetchEmployees, deleteEmployeeAsync, editEmployeeAsync } from "./redux/slice/EmployeeSlice";
+import { useDispatch, useSelector } from 'react-redux';
+function EmployeeList() {
 
-function EmployeeList({ employees, setEmployees }) {
-    
+    const dispatch = useDispatch();
+
+    const employees = useSelector(
+        state => state.employee.employees
+    );
+
     function handleDelete(empId) {
-        setEmployees(employees.filter(employee => employee.id !== empId));
+        dispatch(deleteEmployeeAsync({employeeId: empId}));
     }
 
     function handleEdit(empId) {
-        const emp=employees.find(employee => employee.id === empId);
-        if(emp){
-            const updatedName = prompt("Enter new name:", emp.name);
-            const updatedRole = prompt("Enter new role:", emp.role);
-            if (updatedName && updatedRole) {
-                setEmployees(employees.map(employee => 
-                    employee.id === empId ? { ...employee, name: updatedName, role: updatedRole } : employee
-                ));
-            }
-        }
+        const emp = employees.find(employee => employee.id === empId);
+
+        if (!emp) return;
+        const updatedName = prompt(
+            "Enter new name:",
+            emp.name
+        );
+
+        if (updatedName === null) return;
+
+        const updatedRole = prompt( "Enter new role:", emp.role);
+
+        if (updatedRole === null) return;
+
+        dispatch(
+            editEmployeeAsync({
+                employeeId: empId,
+                employee: {
+                    name: updatedName,
+                    role: updatedRole
+                }
+            })
+        );
     }
 
     return(

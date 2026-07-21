@@ -6,7 +6,7 @@ export function getEmployees() {
 export function addEmployee(data){
     return api.post('/employees', data);
 }
-export function updateEmployee(id, data){
+export function editEmployee(id, data){
     return api.put(`/employees/${id}`, data);
 }
 export function deleteEmployee(id){

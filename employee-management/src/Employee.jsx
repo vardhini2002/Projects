@@ -1,23 +1,31 @@
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Dashboard from './components/Dashboard'
-import { useState , useEffect } from 'react';
 import EmployeeList from './EmployeeList';
+
+import { useState , useEffect } from 'react';
+import {useDispatch} from 'react-redux';
+
+import {addEmployeeAsync} from './redux/slice/EmployeeSlice';
 import {getEmployees} from "./services/employeeService";
+
 function Employee() {
-    const [employees, setEmployees] = useState([]);
     const [newEmployee, setNewEmployee] = useState({ name: '', role: '' });
-    
+    const dispatch = useDispatch();
 
     useEffect(() => {
         getEmployees()
-            .then(response => { 
-                setEmployees(response.data);
-            });
-    }, []);
+            .then(response => {
+                response.data.forEach(employee => {
+                    dispatch(addEmployeeAsync(employee));
+                });
 
-    function handleAddEmployee(employee) {
-        setEmployees([...employees, employee]);
+            });
+
+    }, [dispatch]);
+
+    function handleAddEmployee() {
+        dispatch(addEmployeeAsync(newEmployee));
         setNewEmployee({ name: '', role: '' });
     }
 
@@ -28,7 +36,7 @@ return(
         <Dashboard />
         <h4>Employee Management System</h4>
         <p>Welcome Harsha!</p>
-
+        {/* form */}
         <div className="form">
             <input 
                 value={newEmployee.name} 
@@ -40,10 +48,9 @@ return(
                 placeholder="Enter Role" 
                 onChange={(e) => setNewEmployee({...newEmployee, role: e.target.value})}
             />
-            <button onClick={() => handleAddEmployee(newEmployee)}>Add Employee</button>
+            <button onClick={handleAddEmployee}>Add Employee</button>
         </div>
-        <EmployeeList employees={employees} setEmployees={setEmployees} />
-        
+        <EmployeeList />
     </div>
     )
 }
