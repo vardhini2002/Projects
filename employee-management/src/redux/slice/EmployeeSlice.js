@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getEmployees ,addEmployee,  editEmployee , deleteEmployee } from "../../services/employeeService";
+import {
+    getEmployees,
+    addEmployee as addEmployeeService,
+    editEmployee as editEmployeeService,
+    deleteEmployee as deleteEmployeeService
+} from "../../services/employeeService";
 
 export const fetchEmployeesAsync = createAsyncThunk(
     "employee/fetchEmployeesAsync",
@@ -13,7 +18,7 @@ export const fetchEmployeesAsync = createAsyncThunk(
 export const addEmployeeAsync = createAsyncThunk(
     "employee/addEmployeeAsync",
     async (employee) => {
-        const response = await addEmployee(employee);
+        const response = await addEmployeeService(employee);
         return response.data;
     }
 );
@@ -21,7 +26,7 @@ export const addEmployeeAsync = createAsyncThunk(
 export const editEmployeeAsync = createAsyncThunk(
     "employee/editEmployeeAsync",
     async ({ employeeId, employee }) => {
-        const response = await editEmployee(employeeId, employee);
+        const response = await editEmployeeService(employeeId, employee);
         return response.data;
     }
 );
@@ -29,7 +34,7 @@ export const editEmployeeAsync = createAsyncThunk(
 export const deleteEmployeeAsync = createAsyncThunk(
     "employee/deleteEmployeeAsync",
     async ({ employeeId }) => {
-        await deleteEmployee(employeeId);
+        await deleteEmployeeService(employeeId);
         return employeeId;
     }
 );

@@ -3,18 +3,29 @@ import Sidebar from './components/Sidebar'
 import Dashboard from './components/Dashboard'
 import EmployeeList from './EmployeeList';
 
-import { useState , useEffect } from 'react';
-import {useDispatch} from 'react-redux';
+import { useState } from 'react';
+// import {useDispatch} from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { getEmployees,addEmployee } from './services/employeeService';
 
-import {addEmployeeAsync, fetchEmployeesAsync} from './redux/slice/EmployeeSlice';
+// import {addEmployeeAsync, fetchEmployeesAsync} from './redux/slice/EmployeeSlice';
 
 function Employee() {
     const [newEmployee, setNewEmployee] = useState({ name: '', role: '' });
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const mutation = useMutation({
+        mutationFn: addEmployee
+    });
+    const { data } = useQuery({
+        queryKey: ["employees"],
+        queryFn: getEmployees
+    });
+    // useEffect(() => {
+    //     dispatch(fetchEmployeesAsync());
+    // }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchEmployeesAsync());
-    }, [dispatch]);
+
 
     function handleAddEmployee() {
 
@@ -22,7 +33,8 @@ function Employee() {
             alert("Please enter name and role");
             return;
         }
-        dispatch(addEmployeeAsync(newEmployee));
+        // dispatch(addEmployeeAsync(newEmployee));
+        mutation.mutate(newEmployee);
         setNewEmployee({
             name:"",
             role:""

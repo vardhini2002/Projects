@@ -1,16 +1,32 @@
 import EmployeeCard from './components/EmployeeCard'
-import { deleteEmployeeAsync, editEmployeeAsync } from "./redux/slice/EmployeeSlice";
-import { useDispatch, useSelector } from 'react-redux';
+import { getEmployees,editEmployee,deleteEmployee } from './services/employeeService';
+import { useMutation,useQuery } from '@tanstack/react-query';
+// import { deleteEmployeeAsync, editEmployeeAsync } from "./redux/slice/EmployeeSlice";
+// import { useDispatch, useSelector } from 'react-redux';
 function EmployeeList() {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const employees = useSelector(
-        state => state.employee.employees
-    );
+    // const employees = useSelector(
+    //     state => state.employee.employees
+    // );
+    const { data: employees = [] } = useQuery({
+        queryKey: ["employees"],
+        queryFn: getEmployees
+    });
+
+    const editMutation = useMutation({
+        mutationFn: ({ id, employee }) =>
+            editEmployee(id, employee)
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteEmployee
+    });
 
     function handleDelete(empId) {
-        dispatch(deleteEmployeeAsync({employeeId: empId}));
+        // dispatch(deleteEmployeeAsync({employeeId: empId}));
+        deleteMutation.mutate(deleteEmployee(empId));
     }
 
     function handleEdit(empId) {
@@ -22,15 +38,22 @@ function EmployeeList() {
         const updatedRole = prompt( "Enter new role:", emp.role);
         if (updatedRole === null) return;
 
-        dispatch(
-            editEmployeeAsync({
-                employeeId: empId,
-                employee: {
-                    name: updatedName,
-                    role: updatedRole
-                }
-            })
-        );
+        // dispatch(
+        //     editEmployeeAsync({
+        //         employeeId: empId,
+        //         employee: {
+        //             name: updatedName,
+        //             role: updatedRole
+        //         }
+        //     })
+        // );
+        editMutation.mutate(editEmployee({
+            employeeId: empId,
+            employee: {
+                name: updatedName,
+                role: updatedRole
+            }
+        }))
     }
 
     return(
