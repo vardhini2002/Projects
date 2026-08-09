@@ -5,11 +5,9 @@ import EmployeeList from './EmployeeList';
 
 import { useState } from 'react';
 // import {useDispatch} from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery,useMutation } from '@tanstack/react-query';
 import { getEmployees,addEmployee } from './services/employeeService';
 
-// import {addEmployeeAsync, fetchEmployeesAsync} from './redux/slice/EmployeeSlice';
 
 function Employee() {
     const [newEmployee, setNewEmployee] = useState({ name: '', role: '' });

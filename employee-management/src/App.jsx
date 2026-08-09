@@ -10,7 +10,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Employee />} />
+        <Route path="/" element={<Dashboard />} />
 		    <Route path="/employees" element={<Employee />} />
 	    </Routes>
 	</AuthProvider>
