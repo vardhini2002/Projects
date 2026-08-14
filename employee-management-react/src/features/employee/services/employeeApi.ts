@@ -7,7 +7,16 @@ export const getEmployees = async():Promise<EmployeeType[]> => {
     return response.data;
 }
 
-export const addEmployee = async(Omit<EmployeeType, "id">):Promise<EmployeeType> => {
+export const addEmployee = async(employee:Omit<EmployeeType, "id">):Promise<EmployeeType> => {
     const response = await api.post("/employee/add",employee);
     return response.data;
 }
+
+export const editEmployee = async(id:number, employee:Omit<EmployeeType, "id">):Promise<EmployeeType> =>{
+    const response = await api.put(`/employees/${id}`, employee);
+    return response.data;
+}
+
+export const deleteEmployee = async (id: number): Promise<void> => {
+    await api.delete(`/employees/${id}`);
+};

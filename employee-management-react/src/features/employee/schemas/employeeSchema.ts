@@ -20,4 +20,4 @@ export const employeeSchema = z.object({
     status: z.enum(["active", "inactive"]),
 });
 
-export type EmployeeFormData = z.infer<typeof employeeSchema>;
+export type EmployeeData = z.infer<typeof employeeSchema>;
