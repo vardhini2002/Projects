@@ -16,6 +16,7 @@ function EmployeeAdd({employee}: EmployeeProps){
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<EmployeeData>({
         resolver: zodResolver(employeeSchema),
