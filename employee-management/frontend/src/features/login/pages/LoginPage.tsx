@@ -8,13 +8,7 @@ import { useNavigate } from "react-router-dom";
 function LoginPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginType>({
-        resolver: zodResolver(loginSchema),
-    });
+    const {register,handleSubmit,formState: { errors }} = useForm<LoginType>({resolver: zodResolver(loginSchema)});
     const handleLogin = (data: LoginType) => {
         dispatch(saveUser(data));
         navigate("/dashboard");

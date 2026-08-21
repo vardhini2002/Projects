@@ -1,13 +1,10 @@
 import './App.css'
-import LoginPage from './features/login/pages/LoginPage';
 import ProtectedRoute from './routes/ProtectedRoute';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import LoginPage from './features/login/pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import DashboardLayout from "./layouts/DashboardLayout";
-
-
-
 import EmployeeList from "./features/employee/components/EmployeeList";
 
 
