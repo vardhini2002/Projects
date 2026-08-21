@@ -1,23 +1,51 @@
 import './App.css'
-import Login from './features/login/pages/LoginPage';
+import LoginPage from './features/login/pages/LoginPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import DashboardLayout from "./layouts/DashboardLayout";
+
+
+
+import EmployeeList from "./features/employee/components/EmployeeList";
+
 
 function App() {
-  return (
-    <BrowserRouter>
-      <h4>Employee Management System</h4>
-      
+    return (
+        <BrowserRouter>
 
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      </Routes>
+            <Routes>
 
-    </BrowserRouter>
-  );
+                <Route
+                    path="/"
+                    element={<LoginPage />}
+                />
+
+                <Route
+                    element={
+                        <ProtectedRoute>
+                            <DashboardLayout />
+                        </ProtectedRoute>
+                    }
+                >
+
+                    <Route
+                        path="/dashboard"
+                        element={<Dashboard />}
+                    />
+
+                    <Route
+                        path="/employees"
+                        element={<EmployeeList />}
+                    />
+
+                </Route>
+
+            </Routes>
+
+        </BrowserRouter>
+    );
 }
 
 export default App;

@@ -1,9 +1,7 @@
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+
 import { logout } from "../slice/authSlice";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import EmployeeList from "../features/employee/components/EmployeeList";
 
@@ -17,8 +15,6 @@ function Dashboard() {
     }
     return(
         <div>
-            <Navbar />
-            <Sidebar />
             <h3>Dashboard</h3>
             <div>{user ? `Welcome, ${user.email}!` : "Please log in."}</div>
             <EmployeeList />

@@ -1,14 +1,47 @@
-import "./styles/Navbar.css";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
+import "./Navbar.css";
 
 function Navbar() {
-    return(
-        <div className="Navbar">
-            <h5>Navbar</h5>
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#clients">Clients</a>
-            <a href="#contact">Contact</a>
-        </div>
+
+    const user = useSelector(
+        (state: RootState) => state.auth.user
+    );
+
+    return (
+        <header className="navbar">
+
+            <div className="navbar__title">
+                Salary Management
+            </div>
+
+            <div className="navbar__right">
+
+                <button className="navbar__notification">
+                    🔔
+                </button>
+
+                <div className="navbar__user">
+
+                    <div className="navbar__avatar">
+                        {user?.name?.charAt(0).toUpperCase()}
+                    </div>
+
+                    <div>
+                        <p className="navbar__name">
+                            {user?.name}
+                        </p>
+
+                        <p className="navbar__role">
+                            {user?.role}
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
     );
 }
 
