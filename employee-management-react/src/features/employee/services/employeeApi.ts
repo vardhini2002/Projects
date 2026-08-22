@@ -8,7 +8,7 @@ export const getEmployees = async():Promise<EmployeeType[]> => {
 }
 
 export const addEmployee = async(employee:Omit<EmployeeType, "id">):Promise<EmployeeType> => {
-    const response = await api.post("/employees",employee);
+    const response = await api.post("/employee/add",employee);
     return response.data;
 }
 

@@ -4,17 +4,16 @@ import {
     useQuery,
     useQueryClient,
 } from "@tanstack/react-query";
-
 import {
+    addEmployee,
     deleteEmployee,
     getEmployees,
 } from "../services/employeeApi";
-
 import type { EmployeeType } from "../types/EmployeeType";
 import EmployeeAdd from "../components/EmployeeAdd";
+import EmployeeItem from "./EmployeeItem";
 
 function EmployeeList() {
-
     const [search, setSearch] = useState("");
     const [department, setDepartment] = useState("");
 
@@ -33,21 +32,28 @@ function EmployeeList() {
     });
 
     const deleteMutation = useMutation({
-
         mutationFn: deleteEmployee,
 
         onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["employees"],
+            });
+        },
+    });
+
+    const addMutation = useMutation({
+        mutationFn: addEmployee,
+
+        onSuccess: () => {
+            setEditingEmployee(null);
 
             queryClient.invalidateQueries({
                 queryKey: ["employees"],
             });
-
         },
-
     });
 
-    const handleDelete = (id: number) => {
-
+    const handleDelete = (id: number): void => {
         const confirmed = window.confirm(
             "Are you sure you want to delete this employee?"
         );
@@ -59,19 +65,25 @@ function EmployeeList() {
         deleteMutation.mutate(id);
     };
 
-    const filteredEmployees = employees?.filter((employee) => {
+    const handleAdd = (): void => {
+        setEditingEmployee(null);
+        navigation.navigate("/employee/add");
+    };
 
-        const matchesSearch =
-            employee.name
-                .toLowerCase()
-                .includes(search.toLowerCase());
+    const handleSubmit = (employee: EmployeeType): void => {
+        addMutation.mutate(employee);
+    };
+
+    const filteredEmployees = employees?.filter((employee) => {
+        const matchesSearch = employee.name
+            .toLowerCase()
+            .includes(search.toLowerCase());
 
         const matchesDepartment =
             department === "" ||
             employee.department === department;
 
         return matchesSearch && matchesDepartment;
-
     });
 
     if (isLoading) {
@@ -84,10 +96,7 @@ function EmployeeList() {
 
     return (
         <div>
-
             <h1>Employees</h1>
-
-            {/* Search */}
 
             <input
                 type="text"
@@ -96,93 +105,28 @@ function EmployeeList() {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
-            {/* Department Filter */}
+            <button onClick={handleAdd}>
+                Add Employee
+            </button>
 
-            <select
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-            >
-                <option value="">
-                    All Departments
-                </option>
-
-                <option value="IT">
-                    IT
-                </option>
-
-                <option value="HR">
-                    HR
-                </option>
-
-                <option value="Finance">
-                    Finance
-                </option>
-            </select>
-
-            {/* Employee Form */}
-
-            <EmployeeAdd
-                employee={editingEmployee}
-                onSuccess={() => {
-                    setEditingEmployee(null);
-                }}
-            />
-
-            <hr />
-
-            {/* Employee List */}
-
-            {filteredEmployees?.length === 0 ? (
-
-                <p>
-                    No employees found.
-                </p>
-
-            ) : (
-
-                filteredEmployees?.map((employee) => (
-
-                    <div key={employee.id}>
-
-                        <p>
-                            Name: {employee.name}
-                        </p>
-
-                        <p>
-                            Email: {employee.email}
-                        </p>
-
-                        <p>
-                            Department: {employee.department}
-                        </p>
-
-                        <button
-                            onClick={() =>
-                                setEditingEmployee(employee)
-                            }
-                        >
-                            Edit
-                        </button>
-
-                        <button
-                            onClick={() =>
-                                handleDelete(employee.id)
-                            }
-                            disabled={deleteMutation.isPending}
-                        >
-                            {deleteMutation.isPending
-                                ? "Deleting..."
-                                : "Delete"}
-                        </button>
-
-                        <hr />
-
-                    </div>
-
-                ))
-
+            {editingEmployee === null && (
+                <EmployeeAdd
+                    onSubmit={handleSubmit}
+                />
             )}
 
+            {filteredEmployees?.length === 0 ? (
+                <p>No employees found.</p>
+            ) : (
+                filteredEmployees?.map((employee) => (
+                    <EmployeeItem
+                        key={employee.id}
+                        employee={employee}
+                        handleDelete={handleDelete}
+                        setEditingEmployee={setEditingEmployee}
+                    />
+                ))
+            )}
         </div>
     );
 }

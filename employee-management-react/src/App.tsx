@@ -5,9 +5,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import DashboardLayout from "./layouts/DashboardLayout";
-
-
-
+import EmployeeAdd from './features/employee/components/EmployeeAdd';
 import EmployeeList from "./features/employee/components/EmployeeList";
 
 
@@ -39,6 +37,12 @@ function App() {
                         path="/employees"
                         element={<EmployeeList />}
                     />
+
+                    <Route
+                        path="/employee/add"
+                        element={<EmployeeAdd />}
+                    />
+
 
                 </Route>
 

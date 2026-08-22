@@ -1,18 +1,20 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
-import type {EmployeeType}  from "../types/employee";
+import {
+    useMutation,
+    useQueryClient,
+} from "@tanstack/react-query";
+
 import {
     employeeSchema,
     type EmployeeData,
 } from "../schemas/employeeSchema";
-import { addEmployee , editEmployee,deleteEmployee } from "../services/employeeApi";
-import { useEffect } from "react";
 
-type EmployeeProps = {
-    employee?: EmployeeType | null;
-}
-function EmployeeAdd({employee}: EmployeeProps){
+import { addEmployee } from "../services/employeeApi";
+
+function EmployeeAdd() {
+    const queryClient = useQueryClient();
+
     const {
         register,
         handleSubmit,
@@ -22,27 +24,15 @@ function EmployeeAdd({employee}: EmployeeProps){
         resolver: zodResolver(employeeSchema),
         defaultValues: {
             status: "active",
+            salary: 0,
         },
     });
 
-     const mutation = useMutation({
-        mutationFn: (data: EmployeeData) => {
-
-            if (employee) {
-
-                return editEmployee(
-                    employee.id,
-                    data
-                );
-
-            }
-
-            return addEmployee(data);
-        },
+    const mutation = useMutation({
+        mutationFn: addEmployee,
 
         onSuccess: () => {
-
-            QueryClient.invalidateQueries({
+            queryClient.invalidateQueries({
                 queryKey: ["employees"],
             });
 
@@ -50,50 +40,14 @@ function EmployeeAdd({employee}: EmployeeProps){
         },
     });
 
-    const deleteMutation =useMutation({
-        mutationFn: deleteEmployee,
-
-        onSuccess: () => {
-        queryClient.invalidateQueries({
-            queryKey: ["employees"],
-        });
-    },
-    })
- 
-     const onSubmit = (data: EmployeeData) => {
+    const onSubmit = (data: EmployeeData): void => {
         mutation.mutate(data);
     };
 
-    useEffect(() => {
-
-    if (employee) {
-
-        reset({
-            name: employee.name,
-            email: employee.email,
-            department: employee.department,
-            salary: employee.salary,
-            phone: employee.phone,
-            status: employee.status,
-        });
-
-    } else {
-
-        reset({
-            name: "",
-            email: "",
-            department: "",
-            salary: 0,
-            phone: "",
-            status: "active",
-        });
-
-    }
-
-}, [employee, reset]);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-         <div>
+
+            <div>
                 <label>Name</label>
 
                 <input
@@ -149,7 +103,6 @@ function EmployeeAdd({employee}: EmployeeProps){
                 <label>Status</label>
 
                 <select {...register("status")}>
-
                     <option value="active">
                         Active
                     </option>
@@ -157,7 +110,6 @@ function EmployeeAdd({employee}: EmployeeProps){
                     <option value="inactive">
                         Inactive
                     </option>
-
                 </select>
             </div>
 
@@ -167,13 +119,11 @@ function EmployeeAdd({employee}: EmployeeProps){
             >
                 {mutation.isPending
                     ? "Saving..."
-                    : employee
-                        ? "Update Employee"
-                        : "Add Employee"
-                }
+                    : "Add Employee"}
             </button>
 
         </form>
     );
 }
+
 export default EmployeeAdd;
