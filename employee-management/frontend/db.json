@@ -1,0 +1,53 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Harsha",
+      "email": "harsha@test.com",
+      "department": "IT",
+      "phone": "9876543210",
+      "status": "active"
+    },
+    {
+      "name": "Priya1",
+      "email": "priya@test.com",
+      "department": "Finance",
+      "phone": "9876543212",
+      "status": "inactive",
+      "id": "3"
+    },
+    {
+      "id": "4",
+      "name": "David",
+      "email": "david@test.com",
+      "department": "IT",
+      "phone": "9876543213",
+      "status": "active"
+    },
+    {
+      "name": "green",
+      "email": "cudieverse@gmail.com",
+      "department": "Finance",
+      "phone": "9876543212",
+      "status": "active",
+      "id": "JoIwvQeveGw"
+    },
+    {
+      "name": "green",
+      "email": "cudieverse@gmail.com",
+      "department": "Finance",
+      "phone": "9876543212",
+      "status": "active",
+      "id": "UXw_vYJ7Pkw"
+    },
+    {
+      "name": "green",
+      "email": "cudieverse@gmail.com",
+      "department": "Finance",
+      "phone": "9876543212",
+      "status": "active",
+      "id": "4fpRiE3QFVQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
