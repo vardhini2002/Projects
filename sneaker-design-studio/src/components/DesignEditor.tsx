@@ -1,84 +1,73 @@
-import SneakerPreview from "./SneakerPreview";
-import { useAppDispatch } from "../store/hooks";
 import ColorPicker from "./ColorPicker";
+
 import {
   setUpperColor,
   setSoleColor,
   setLacesColor,
+  resetDesign,
 } from "../store/DesignSlice";
-import { useAppSelector } from "../store/hooks";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../store/hooks";
+
+import SneakerPreview from "./SneakerPreview";
 
 function DesignEditor() {
   const dispatch = useAppDispatch();
-  const upperColor = useAppSelector((state) => state.design.upper);
-  const soleColor = useAppSelector((state) => state.design.sole);
-  const lacesColor = useAppSelector((state) => state.design.laces);
-  const upperColors = [
-  "#FF0000",
-  "#0000FF",
-  "#00AA00",
-  "#000000",
-  "#FFFFFF",
-];
-const soleColors = [
-  "#FFFFFF",
-  "#000000",
-  "#0000FF",
-  "#FF0000",
-];
-const lacesColors = [
-  "#FFFFFF",
-  "#000000",
-  "#FF0000",
-  "#0000FF",
-];
+
+  const upperColor = useAppSelector(
+    (state) => state.design.components.upper
+  );
+
+  const soleColor = useAppSelector(
+    (state) => state.design.components.sole
+  );
+
+  const lacesColor = useAppSelector(
+    (state) => state.design.components.laces
+  );
 
   return (
     <div>
-
       <h1>Sneaker Design Studio</h1>
 
-      <SneakerPreview
-      />
+      <SneakerPreview />
 
       <div>
-
         <h2>Customize</h2>
 
-        <h3>Upper</h3>
+        <ColorPicker
+          label="Upper"
+          value={upperColor}
+          onChange={(color) =>
+            dispatch(setUpperColor(color))
+          }
+        />
 
-  <ColorPicker
-    colors={upperColors}
-    selectedColor={upperColor}
-    onChange={(color) =>
-      dispatch(setUpperColor(color))
-    }
-  />
+        <ColorPicker
+          label="Sole"
+          value={soleColor}
+          onChange={(color) =>
+            dispatch(setSoleColor(color))
+          }
+        />
 
+        <ColorPicker
+          label="Laces"
+          value={lacesColor}
+          onChange={(color) =>
+            dispatch(setLacesColor(color))
+          }
+        />
 
-        <h3>Sole</h3>
-
-      <ColorPicker
-        colors={soleColors}
-        selectedColor={soleColor}
-        onChange={(color) =>
-          dispatch(setSoleColor(color))
-        }
-      />
-
-
-       <h3>Laces</h3>
-
-      <ColorPicker
-        colors={lacesColors}
-        selectedColor={lacesColor}
-        onChange={(color) =>
-          dispatch(setLacesColor(color))
-        }
-      />
-
+        <button
+          onClick={() => dispatch(resetDesign())}
+        >
+          Reset Design
+        </button>
       </div>
-
     </div>
   );
 }

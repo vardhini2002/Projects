@@ -1,15 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+ type PayloadAction,
+} from "@reduxjs/toolkit";
+
 interface DesignState {
-  upper: string;
-  sole: string;
-  laces: string;
+  model: string;
+
+  components: {
+    upper: string;
+    sole: string;
+    laces: string;
+  };
 }
 
 const initialState: DesignState = {
-  upper: "#FFFFFF",
-  sole: "#FFFFFF",
-  laces: "#111111",
+  model: "runner-v1",
+
+  components: {
+    upper: "#FFFFFF",
+    sole: "#FFFFFF",
+    laces: "#111111",
+  },
 };
 
 const DesignSlice = createSlice({
@@ -18,16 +29,31 @@ const DesignSlice = createSlice({
   initialState,
 
   reducers: {
-    setUpperColor: (state, action: PayloadAction<string>) => {
-      state.upper = action.payload;
+    setUpperColor: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.components.upper = action.payload;
     },
 
-    setSoleColor: (state, action: PayloadAction<string>) => {
-      state.sole = action.payload;
+    setSoleColor: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.components.sole = action.payload;
     },
 
-    setLacesColor: (state, action: PayloadAction<string>) => {
-      state.laces = action.payload;
+    setLacesColor: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.components.laces = action.payload;
+    },
+
+    resetDesign: (state) => {
+      state.components.upper = "#FFFFFF";
+      state.components.sole = "#FFFFFF";
+      state.components.laces = "#111111";
     },
   },
 });
@@ -36,6 +62,7 @@ export const {
   setUpperColor,
   setSoleColor,
   setLacesColor,
+  resetDesign,
 } = DesignSlice.actions;
 
 export default DesignSlice.reducer;

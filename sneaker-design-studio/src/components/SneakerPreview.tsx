@@ -2,15 +2,15 @@ import { useAppSelector } from "../store/hooks";
 
 function SneakerPreview() {
   const upperColor = useAppSelector(
-  (state) => state.design.upper
+  (state) => state.design.components.upper
 );
 
 const soleColor = useAppSelector(
-  (state) => state.design.sole
+  (state) => state.design.components.sole
 );
 
 const lacesColor = useAppSelector(
-  (state) => state.design.laces
+  (state) => state.design.components.laces
 );
 
   return (

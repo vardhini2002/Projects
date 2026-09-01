@@ -10,14 +10,18 @@ function ColorPicker({
   onChange,
 }: ColorPickerProps) {
   return (
-    <div className="color-picker">
-      <label>{label}</label>
+    <div>
+      <label>
+        {label}
 
-      <input
-        type="color"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
+        <input
+          type="color"
+          value={value}
+          onChange={(event) =>
+            onChange(event.target.value)
+          }
+        />
+      </label>
 
       <span>{value}</span>
     </div>
