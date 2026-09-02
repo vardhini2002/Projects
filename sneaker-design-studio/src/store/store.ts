@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import DesignSlice from "./DesignSlice";
+
+import designReducer from "./DesignSlice";
+import editorReducer from "./editorSlice";
 
 export const store = configureStore({
   reducer: {
-    design: DesignSlice,
+    design: designReducer,
+    editor: editorReducer,
   },
 });
 

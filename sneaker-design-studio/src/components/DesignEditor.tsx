@@ -1,10 +1,9 @@
 import ColorPicker from "./ColorPicker";
 
 import {
-  setUpperColor,
-  setSoleColor,
-  setLacesColor,
+  setComponentColor,
   resetDesign,
+  type SneakerComponent,
 } from "../store/DesignSlice";
 
 import {
@@ -12,21 +11,31 @@ import {
   useAppSelector,
 } from "../store/hooks";
 
+import {
+  setSelectedComponent,
+} from "../store/editorSlice";
+
 import SneakerPreview from "./SneakerPreview";
+
+const componentLabels: {
+  key: SneakerComponent;
+  label: string;
+}[] = [
+  { key: "upper", label: "Upper" },
+  { key: "heel", label: "Heel" },
+  { key: "tongue", label: "Tongue" },
+  { key: "midsole", label: "Midsole" },
+  { key: "outsole", label: "Outsole" },
+  { key: "laces", label: "Laces" },
+  { key: "toe", label: "Toe" },
+  { key: "logo", label: "Logo" },
+];
 
 function DesignEditor() {
   const dispatch = useAppDispatch();
 
-  const upperColor = useAppSelector(
-    (state) => state.design.components.upper
-  );
-
-  const soleColor = useAppSelector(
-    (state) => state.design.components.sole
-  );
-
-  const lacesColor = useAppSelector(
-    (state) => state.design.components.laces
+  const components = useAppSelector(
+    (state) => state.design.components
   );
 
   return (
@@ -38,33 +47,24 @@ function DesignEditor() {
       <div>
         <h2>Customize</h2>
 
-        <ColorPicker
-          label="Upper"
-          value={upperColor}
-          onChange={(color) =>
-            dispatch(setUpperColor(color))
-          }
-        />
+        {componentLabels.map(({ key, label }) => (
+          <ColorPicker
+            key={key}
+            label={label}
+            value={components[key]}
+            onChange={(color) => {
+              dispatch(
+                setComponentColor({
+                  component: key,
+                  color,
+                })
+              );
 
-        <ColorPicker
-          label="Sole"
-          value={soleColor}
-          onChange={(color) =>
-            dispatch(setSoleColor(color))
-          }
-        />
+            }}
+          />
+        ))}
 
-        <ColorPicker
-          label="Laces"
-          value={lacesColor}
-          onChange={(color) =>
-            dispatch(setLacesColor(color))
-          }
-        />
-
-        <button
-          onClick={() => dispatch(resetDesign())}
-        >
+        <button onClick={() => dispatch(resetDesign())}>
           Reset Design
         </button>
       </div>

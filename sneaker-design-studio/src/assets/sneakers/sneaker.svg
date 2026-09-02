@@ -1,70 +1,160 @@
 <svg
-  width="600"
-  height="400"
-  viewBox="0 0 600 400"
   xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 650"
+  width="1000"
+  height="650"
 >
+  <!-- Original sneaker asset for Sneaker Design Studio -->
+  <g id="sneaker">
+    <!-- Upper -->
+    <path
+      id="upper"
+      d="M155 360
+         C175 315 220 250 285 195
+         C330 157 380 145 445 155
+         L545 185
+         C585 197 625 225 660 258
+         L735 328
+         C770 361 812 383 862 396
+         L915 410
+         C940 417 952 437 945 458
+         C936 484 907 496 868 496
+         L270 496
+         C208 496 155 472 135 437
+         C124 417 130 390 155 360 Z"
+      fill="var(--upper-color)"
+      stroke="#171717"
+      stroke-width="9"
+      stroke-linejoin="round"
+    />
 
-  <!-- Upper -->
-  <path
-    id="upper"
-    d="M100 220
-       L180 120
-       L350 140
-       L430 220
-       L500 250
-       L450 290
-       L120 290
-       Z"
-    fill="#FFFFFF"
-    stroke="#111111"
-    stroke-width="5"
-  />
+    <!-- Heel panel -->
+    <path
+      id="heel"
+      d="M155 360
+         C175 315 220 250 285 195
+         L330 170
+         C295 240 282 335 300 496
+         L270 496
+         C208 496 155 472 135 437
+         C124 417 130 390 155 360 Z"
+      fill="var(--heel-color)"
+      stroke="#171717"
+      stroke-width="9"
+      stroke-linejoin="round"
+    />
 
-  <!-- Sole -->
-  <path
-    id="sole"
-    d="M100 275
-       L450 275
-       L500 295
-       L490 330
-       L120 330
-       L90 305
-       Z"
-    fill="#FFFFFF"
-    stroke="#111111"
-    stroke-width="5"
-  />
+    <!-- Tongue -->
+    <path
+      id="tongue"
+      d="M330 170
+         C352 145 390 132 425 145
+         L505 180
+         L475 305
+         L350 300
+         C325 264 315 215 330 170 Z"
+      fill="var(--tongue-color)"
+      stroke="#171717"
+      stroke-width="9"
+      stroke-linejoin="round"
+    />
 
-  <!-- Laces -->
-  <line
-    id="lace-1"
-    x1="210"
-    y1="155"
-    x2="290"
-    y2="185"
-    stroke="#111111"
-    stroke-width="7"
-  />
+    <!-- Midsole -->
+    <path
+      id="midsole"
+      d="M135 437
+         C210 468 300 470 390 468
+         L870 468
+         C905 468 932 461 945 458
+         C942 485 915 515 872 525
+         C805 541 690 543 570 541
+         L245 538
+         C187 537 145 516 125 486
+         C116 472 118 450 135 437 Z"
+      fill="var(--midsole-color)"
+      stroke="#171717"
+      stroke-width="9"
+      stroke-linejoin="round"
+    />
 
-  <line
-    id="lace-2"
-    x1="205"
-    y1="175"
-    x2="285"
-    y2="205"
-    stroke="#111111"
-    stroke-width="7"
-  />
+    <!-- Outsole -->
+    <path
+      id="outsole"
+      d="M125 486
+         C170 520 215 530 280 531
+         L870 531
+         C910 531 938 518 951 495
+         C955 516 940 544 910 557
+         C855 581 720 587 565 586
+         L260 583
+         C190 582 137 560 115 530
+         C106 518 109 500 125 486 Z"
+      fill="var(--outsole-color)"
+      stroke="#171717"
+      stroke-width="9"
+      stroke-linejoin="round"
+    />
 
-  <line
-    id="lace-3"
-    x1="200"
-    y1="195"
-    x2="280"
-    y2="225"
-    stroke="#111111"
-    stroke-width="7"
-  />
+    <!-- Lace eyelet area -->
+    <path
+      id="lace-panel"
+      d="M355 235
+         C385 220 430 222 475 239
+         L545 273
+         L518 335
+         L360 326
+         C340 299 338 266 355 235 Z"
+      fill="var(--lace-panel-color)"
+      stroke="#171717"
+      stroke-width="7"
+      stroke-linejoin="round"
+    />
 
+    <!-- Laces -->
+    <g id="laces" fill="none" stroke="#171717" stroke-width="11" stroke-linecap="round">
+      <path id="lace-1" d="M370 250 L505 292" />
+      <path id="lace-2" d="M358 270 L493 312" />
+      <path id="lace-3" d="M352 291 L482 331" />
+      <path id="lace-4" d="M350 311 L465 348" />
+    </g>
+
+    <!-- Toe panel -->
+    <path
+      id="toe"
+      d="M545 185
+         C585 197 625 225 660 258
+         L735 328
+         C770 361 812 383 862 396
+         L905 407
+         C850 420 790 422 735 409
+         C675 395 625 360 588 320
+         C553 283 530 235 545 185 Z"
+      fill="var(--toe-color)"
+      stroke="#171717"
+      stroke-width="7"
+      stroke-linejoin="round"
+    />
+
+    <!-- Logo -->
+    <path
+      id="logo"
+      d="M520 370
+         C555 348 603 344 650 353
+         C614 370 573 386 532 391
+         C518 393 511 380 520 370 Z"
+      fill="var(--logo-color)"
+      stroke="#171717"
+      stroke-width="3"
+    />
+
+    <!-- Sole detail -->
+    <path
+      id="sole-detail"
+      d="M180 500 C240 514 315 517 390 517"
+      stroke="var(--laces-color)"
+      stroke="#8A8A8A"
+      stroke-width="5"
+      stroke-linecap="round"
+    />
+  </g>
 </svg>

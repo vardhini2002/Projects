@@ -1,68 +1,60 @@
-import {
-  createSlice,
- type PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+export type SneakerComponent =
+  | "upper"
+  | "heel"
+  | "tongue"
+  | "midsole"
+  | "outsole"
+  | "laces"
+  | "toe"
+  | "logo";
 
 interface DesignState {
   model: string;
-
-  components: {
-    upper: string;
-    sole: string;
-    laces: string;
-  };
+  components: Record<SneakerComponent, string>;
 }
 
 const initialState: DesignState = {
   model: "runner-v1",
 
   components: {
-    upper: "#FFFFFF",
-    sole: "#FFFFFF",
-    laces: "#111111",
+   upper: "#FF0000",
+    heel: "#E5E5E5",
+    tongue: "#D9D9D9",
+    midsole: "#FFFFFF",
+    outsole: "#CFCFCF",
+    laces: "#171717",
+    toe: "#EEEEEE",
+    logo: "#171717",
   },
 };
 
-const DesignSlice = createSlice({
+const designSlice = createSlice({
   name: "design",
 
   initialState,
 
   reducers: {
-    setUpperColor: (
+    setComponentColor: (
       state,
-      action: PayloadAction<string>
+      action: PayloadAction<{
+        component: SneakerComponent;
+        color: string;
+      }>
     ) => {
-      state.components.upper = action.payload;
-    },
-
-    setSoleColor: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-      state.components.sole = action.payload;
-    },
-
-    setLacesColor: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-      state.components.laces = action.payload;
+      state.components[action.payload.component] = action.payload.color;
     },
 
     resetDesign: (state) => {
-      state.components.upper = "#FFFFFF";
-      state.components.sole = "#FFFFFF";
-      state.components.laces = "#111111";
+      state.components = initialState.components;
     },
   },
 });
 
 export const {
-  setUpperColor,
-  setSoleColor,
-  setLacesColor,
+  setComponentColor,
   resetDesign,
-} = DesignSlice.actions;
+} = designSlice.actions;
 
-export default DesignSlice.reducer;
+export default designSlice.reducer;
