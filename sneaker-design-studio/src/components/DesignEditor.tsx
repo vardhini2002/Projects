@@ -38,6 +38,10 @@ function DesignEditor() {
     (state) => state.design.components
   );
 
+  const selectedComponent = useAppSelector(
+  (state) => state.editor.selectedComponent
+);
+
   return (
     <div>
       <h1>Sneaker Design Studio</h1>
@@ -46,24 +50,31 @@ function DesignEditor() {
 
       <div>
         <h2>Customize</h2>
+        <p>
+          Selected component:{" "}
+          {selectedComponent ?? "None"}
+        </p>
 
         {componentLabels.map(({ key, label }) => (
-          <ColorPicker
-            key={key}
-            label={label}
-            value={components[key]}
-            onChange={(color) => {
-              dispatch(
-                setComponentColor({
-                  component: key,
-                  color,
-                })
-              );
+          <div key={key}>
+            <button onClick={() => dispatch(setSelectedComponent(key))}>
+              Select {label}
+            </button>
 
-            }}
-          />
+            <ColorPicker
+              label={label}
+              value={components[key]}
+              onChange={(color) => {
+                dispatch(
+                  setComponentColor({
+                    component: key,
+                    color,
+                  })
+                );
+              }}
+            />
+          </div>
         ))}
-
         <button onClick={() => dispatch(resetDesign())}>
           Reset Design
         </button>

@@ -19,7 +19,7 @@ const initialState: DesignState = {
   model: "runner-v1",
 
   components: {
-   upper: "#FF0000",
+    upper: "#FF0000",
     heel: "#E5E5E5",
     tongue: "#D9D9D9",
     midsole: "#FFFFFF",
