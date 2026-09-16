@@ -1,13 +1,18 @@
-import DesignEditor  from './components/DesignEditor'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import DesignEditor from "./components/DesignEditor";
+import MyDesigns from "./components/MyDesigns";
 
 function App() {
-
   return (
-    <>
-      <DesignEditor />
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<DesignEditor />} />
+
+        <Route path="/designs" element={<MyDesigns />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

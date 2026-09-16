@@ -13,6 +13,8 @@ export type SneakerComponent =
 interface DesignState {
   model: string;
   components: Record<SneakerComponent, string>;
+  past: Record<SneakerComponent, string>[];
+  future: Record<SneakerComponent, string>[];
 }
 
 const initialState: DesignState = {
@@ -28,6 +30,8 @@ const initialState: DesignState = {
     toe: "#EEEEEE",
     logo: "#171717",
   },
+  past: [],
+  future: [],
 };
 
 const designSlice = createSlice({
@@ -41,20 +45,39 @@ const designSlice = createSlice({
       action: PayloadAction<{
         component: SneakerComponent;
         color: string;
-      }>
+      }>,
     ) => {
+      state.past.push({ ...state.components });
+
       state.components[action.payload.component] = action.payload.color;
+
+      state.future = [];
+    },
+
+    undo: (state) => {
+      if (state.past.length > 0) {
+        const previousState = state.past.pop()!;
+        state.future.push({ ...state.components });
+        state.components = previousState;
+      }
+    },
+    redo: (state) => {
+      if (state.future.length > 0) {
+        const nextState = state.future.pop()!;
+        state.past.push({ ...state.components });
+        state.components = nextState;
+      }
     },
 
     resetDesign: (state) => {
+      state.past.push({ ...state.components });
       state.components = initialState.components;
+      state.future = [];
     },
   },
 });
 
-export const {
-  setComponentColor,
-  resetDesign,
-} = designSlice.actions;
+export const { setComponentColor, resetDesign, undo, redo } =
+  designSlice.actions;
 
 export default designSlice.reducer;

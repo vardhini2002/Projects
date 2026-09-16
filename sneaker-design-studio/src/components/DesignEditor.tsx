@@ -1,84 +1,108 @@
 import ColorPicker from "./ColorPicker";
-
 import {
   setComponentColor,
   resetDesign,
-  type SneakerComponent,
+  undo,
+  redo,
 } from "../store/DesignSlice";
 
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../store/hooks";
-
-import {
-  setSelectedComponent,
-} from "../store/editorSlice";
-
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import SneakerPreview from "./SneakerPreview";
-
-const componentLabels: {
-  key: SneakerComponent;
-  label: string;
-}[] = [
-  { key: "upper", label: "Upper" },
-  { key: "heel", label: "Heel" },
-  { key: "tongue", label: "Tongue" },
-  { key: "midsole", label: "Midsole" },
-  { key: "outsole", label: "Outsole" },
-  { key: "laces", label: "Laces" },
-  { key: "toe", label: "Toe" },
-  { key: "logo", label: "Logo" },
-];
-
+import { sneakerComponent as componentConfig } from "../data/sneakerComponent";
+import { saveDesign } from "../utils/designStorage";
 function DesignEditor() {
   const dispatch = useAppDispatch();
 
-  const components = useAppSelector(
-    (state) => state.design.components
-  );
+  const components = useAppSelector((state) => state.design.components);
 
   const selectedComponent = useAppSelector(
-  (state) => state.editor.selectedComponent
-);
+    (state) => state.editor.selectedComponent,
+  );
 
+  const past = useAppSelector((state) => state.design.past);
+
+  const future = useAppSelector((state) => state.design.future);
+  const handleSave = () => {
+    const now = new Date().toISOString();
+
+    const design = {
+      id: crypto.randomUUID(),
+      name: "My Sneaker Design",
+      model: "runner-v1",
+      components: {
+        ...components,
+      },
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    saveDesign(design);
+  };
   return (
-    <div>
-      <h1>Sneaker Design Studio</h1>
+    <div className="design-editor">
+      <header className="design-editor__header">
+        <h1 className="design-editor__title">Sneaker Design Studio</h1>
+      </header>
 
-      <SneakerPreview />
+      <main className="design-editor__workspace">
+        <section className="design-editor__preview">
+          <SneakerPreview />
+        </section>
 
-      <div>
-        <h2>Customize</h2>
-        <p>
-          Selected component:{" "}
-          {selectedComponent ?? "None"}
-        </p>
+        <aside className="design-editor__panel">
+          <h2 className="design-editor__panel-title">Customize</h2>
 
-        {componentLabels.map(({ key, label }) => (
-          <div key={key}>
-            <button onClick={() => dispatch(setSelectedComponent(key))}>
-              Select {label}
+          {!selectedComponent ? (
+            <p className="design-editor__empty">
+              Click a sneaker component to customize it.
+            </p>
+          ) : (
+            <>
+              <h3 className="design-editor__component">
+                {componentConfig[selectedComponent].label}
+              </h3>
+
+              <ColorPicker
+                label="Color"
+                value={components[selectedComponent]}
+                onChange={(color) => {
+                  dispatch(
+                    setComponentColor({
+                      component: selectedComponent,
+                      color,
+                    }),
+                  );
+                }}
+              />
+            </>
+          )}
+
+          <div className="design-editor__actions">
+            <button
+              type="button"
+              onClick={() => dispatch(undo())}
+              disabled={past.length === 0}
+            >
+              ↶ Undo
             </button>
 
-            <ColorPicker
-              label={label}
-              value={components[key]}
-              onChange={(color) => {
-                dispatch(
-                  setComponentColor({
-                    component: key,
-                    color,
-                  })
-                );
-              }}
-            />
+            <button
+              type="button"
+              onClick={() => dispatch(redo())}
+              disabled={future.length === 0}
+            >
+              ↷ Redo
+            </button>
           </div>
-        ))}
-        <button onClick={() => dispatch(resetDesign())}>
-          Reset Design
+
+          <button type="button" onClick={() => dispatch(resetDesign())}>
+            Reset Design
+          </button>
+        </aside>
+        <button type="button" onClick={handleSave}>
+          Save Design
         </button>
-      </div>
+      </main>
     </div>
   );
 }

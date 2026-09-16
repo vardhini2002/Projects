@@ -9,6 +9,7 @@
     <!-- Upper -->
     <path
       id="upper"
+      class="sneaker-component"
       d="M155 360
          C175 315 220 250 285 195
          C330 157 380 145 445 155
@@ -31,6 +32,7 @@
     <!-- Heel panel -->
     <path
       id="heel"
+      class="sneaker-component"
       d="M155 360
          C175 315 220 250 285 195
          L330 170
@@ -47,6 +49,7 @@
     <!-- Tongue -->
     <path
       id="tongue"
+      class="sneaker-component"
       d="M330 170
          C352 145 390 132 425 145
          L505 180
@@ -62,6 +65,7 @@
     <!-- Midsole -->
     <path
       id="midsole"
+      class="sneaker-component"
       d="M135 437
          C210 468 300 470 390 468
          L870 468
@@ -80,6 +84,7 @@
     <!-- Outsole -->
     <path
       id="outsole"
+      class="sneaker-component"
       d="M125 486
          C170 520 215 530 280 531
          L870 531
@@ -111,16 +116,17 @@
     />
 
     <!-- Laces -->
-    <g id="laces" fill="none" stroke="#171717" stroke-width="11" stroke-linecap="round">
-      <path id="lace-1" d="M370 250 L505 292" />
-      <path id="lace-2" d="M358 270 L493 312" />
-      <path id="lace-3" d="M352 291 L482 331" />
-      <path id="lace-4" d="M350 311 L465 348" />
+    <g id="laces"  fill="none" stroke="#171717" stroke-width="11" stroke-linecap="round">
+      <path id="lace-1" class="sneaker-component" d="M370 250 L505 292" />
+      <path id="lace-2" class="sneaker-component" d="M358 270 L493 312" />
+      <path id="lace-3" class="sneaker-component" d="M352 291 L482 331" />
+      <path id="lace-4" class="sneaker-component" d="M350 311 L465 348" />
     </g>
 
     <!-- Toe panel -->
     <path
       id="toe"
+      class="sneaker-component"
       d="M545 185
          C585 197 625 225 660 258
          L735 328
@@ -138,6 +144,7 @@
     <!-- Logo -->
     <path
       id="logo"
+      class="sneaker-component"
       d="M520 370
          C555 348 603 344 650 353
          C614 370 573 386 532 391
@@ -150,6 +157,7 @@
     <!-- Sole detail -->
     <path
       id="sole-detail"
+      class="sneaker-component"
       d="M180 500 C240 514 315 517 390 517"
       stroke="var(--laces-color)"
       stroke="#8A8A8A"
