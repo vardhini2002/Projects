@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { SavedDesign } from "../store/DesignTypes";
 import SneakerSvgPreview from "./SneakerSvgPreview";
 import { getDesigns, deleteDesign } from "../utils/designStorage";
 
 function MyDesigns() {
   const [designs, setDesigns] = useState<SavedDesign[]>([]);
-
+  const navigate = useNavigate();
   const loadDesigns = () => {
     const savedDesigns = getDesigns();
 
@@ -34,14 +35,23 @@ function MyDesigns() {
         ) : (
           <div className="my-designs__grid">
             {designs.map((design) => (
-              <article key={design.id} className="my-designs__card">
+              <article key={design.id}>
                 <div className="my-designs__preview">
                   <SneakerSvgPreview design={design} />
                 </div>
-                <div className="my-designs__details">
-                  <h2 className="my-designs__name">{design.name}</h2>
+                <h2>{design.name}</h2>
 
-                  <p className="my-designs__model">Model: {design.model}</p>
+                <p>
+                  Last updated: {new Date(design.updatedAt).toLocaleString()}
+                </p>
+
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/designs/${design.id}`)}
+                  >
+                    Open
+                  </button>
 
                   <button type="button" onClick={() => handleDelete(design.id)}>
                     Delete

@@ -53,6 +53,21 @@ const designSlice = createSlice({
 
       state.future = [];
     },
+    loadDesign: (
+      state,
+      action: PayloadAction<{
+        model: string;
+        components: Record<SneakerComponent, string>;
+      }>,
+    ) => {
+      state.model = action.payload.model;
+      state.components = {
+        ...action.payload.components,
+      };
+
+      state.past = [];
+      state.future = [];
+    },
 
     undo: (state) => {
       if (state.past.length > 0) {
@@ -77,7 +92,7 @@ const designSlice = createSlice({
   },
 });
 
-export const { setComponentColor, resetDesign, undo, redo } =
+export const { setComponentColor, loadDesign, resetDesign, undo, redo } =
   designSlice.actions;
 
 export default designSlice.reducer;

@@ -33,3 +33,13 @@ export const deleteDesign = (id: string): void => {
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedDesigns));
 };
+
+export const updateDesign = (updatedDesign: SavedDesign): void => {
+  const existingDesigns = getDesigns();
+
+  const updatedDesigns = existingDesigns.map((design) =>
+    design.id === updatedDesign.id ? updatedDesign : design,
+  );
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedDesigns));
+};
