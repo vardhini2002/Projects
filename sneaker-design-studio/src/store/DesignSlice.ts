@@ -71,11 +71,15 @@ const designSlice = createSlice({
       action: PayloadAction<{
         model: string;
         components: Record<SneakerComponent, string>;
+        materials: Record<SneakerComponent, SneakerMaterial>;
       }>,
     ) => {
       state.model = action.payload.model;
       state.components = {
         ...action.payload.components,
+      };
+      state.materials = {
+        ...action.payload.materials,
       };
 
       state.past = [];

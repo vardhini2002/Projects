@@ -22,8 +22,22 @@ function SneakerPreview() {
   const selectedComponent = useAppSelector(
     (state) => state.editor.selectedComponent,
   );
+  const materials = useAppSelector(
+    (state) => state.design.materials,
+  );
 
   const SneakerSvg = sneakerModels[model]?.component;
+
+  const materialStyles = {
+    "--upper-material": materials.upper,
+    "--heel-material": materials.heel,
+    "--tongue-material": materials.tongue,
+    "--midsole-material": materials.midsole,
+    "--outsole-material": materials.outsole,
+    "--laces-material": materials.laces,
+    "--toe-material": materials.toe,
+    "--logo-material": materials.logo,
+  };
 
   const sneakerStyles = {
     "--upper-color": components.upper,
@@ -35,8 +49,19 @@ function SneakerPreview() {
     "--toe-color": components.toe,
     "--logo-color": components.logo,
 
-    "--selected-component": selectedComponent ?? "none",
+    "--upper-material": materials.upper,
+    "--heel-material": materials.heel,
+    "--tongue-material": materials.tongue,
+    "--midsole-material": materials.midsole,
+    "--outsole-material": materials.outsole,
+    "--laces-material": materials.laces,
+    "--toe-material": materials.toe,
+    "--logo-material": materials.logo,
+
+    "--selected-component":
+      selectedComponent ?? "none",
   } as CSSProperties;
+
 
   const isSneakerComponent = (
     value: string,
