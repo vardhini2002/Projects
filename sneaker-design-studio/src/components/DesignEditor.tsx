@@ -6,12 +6,15 @@ import { sneakerComponent as componentConfig } from "../data/sneakerComponent";
 import { getDesign, saveDesign, updateDesign } from "../utils/designStorage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { materials } from "../data/materials";
 import {
   setComponentColor,
+  setComponentMaterial,
   resetDesign,
   undo,
   redo,
   loadDesign,
+  setModel
 } from "../store/DesignSlice";
 import { sneakerModels, type SneakerModel } from "../data/sneakerModels";
 
@@ -23,9 +26,11 @@ function DesignEditor() {
   const [designName, setDesignName] = useState(
     existingDesign?.name ?? "My Sneaker Design",
   );
-  const [selectedModel, setSelectedModel] = useState<SneakerModel>("runner-v1");
+  const model = useAppSelector(
+    (state) => state.design.model,
+  );
   const components = useAppSelector((state) => state.design.components);
-
+  const componentMaterials = useAppSelector((state) => state.design.materials);
   const selectedComponent = useAppSelector(
     (state) => state.editor.selectedComponent,
   );
@@ -60,7 +65,7 @@ function DesignEditor() {
     const design = {
       id: crypto.randomUUID(),
       name: designName,
-      model: "runner-v1",
+      model: selectedModel,
       components: {
         ...components,
       },
@@ -112,6 +117,35 @@ function DesignEditor() {
               onChange={(event) => setDesignName(event.target.value)}
             />
           </div>
+          <div className="design-editor__field">
+            <label
+              htmlFor="sneaker-model"
+              className="design-editor__label"
+            >
+              Sneaker Model
+            </label>
+
+            <select
+              id="sneaker-model"
+              value={model}
+              onChange={(event) =>
+                dispatch(
+                  setModel(
+                    event.target.value as SneakerModel,
+                  ),
+                )
+              }
+              className="design-editor__input"
+            >
+              {Object.entries(sneakerModels).map(
+                ([id, model]) => (
+                  <option key={id} value={id}>
+                    {model.name}
+                  </option>
+                ),
+              )}
+            </select>
+          </div>
           <h2 className="design-editor__panel-title">Customize</h2>
 
           {!selectedComponent ? (
@@ -136,6 +170,37 @@ function DesignEditor() {
                   );
                 }}
               />
+              <div className="design-editor__field">
+                <label
+                  htmlFor="component-material"
+                  className="design-editor__label"
+                >
+                  Material
+                </label>
+
+                <select
+                  id="component-material"
+                  value={componentMaterials[selectedComponent]}
+                  onChange={(event) =>
+                    dispatch(
+                      setComponentMaterial({
+                        component: selectedComponent,
+                        material: event.target.value as SneakerMaterial,
+                      }),
+                    )
+                  }
+                  className="design-editor__input"
+                >
+                  {materials.map((material) => (
+                    <option
+                      key={material.id}
+                      value={material.id}
+                    >
+                      {material.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </>
           )}
 

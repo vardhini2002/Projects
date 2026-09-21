@@ -1,16 +1,29 @@
-import type { CSSProperties, MouseEvent } from "react";
-import SneakerSvg from "../assets/sneakers/sneaker.svg?react";
+import type {
+  CSSProperties,
+  MouseEvent,
+} from "react";
+
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setSelectedComponent } from "../store/editorSlice";
 import type { SneakerComponent } from "../store/DesignSlice";
+import { sneakerModels } from "../data/sneakerModels";
 
 function SneakerPreview() {
   const dispatch = useAppDispatch();
 
-  const components = useAppSelector((state) => state.design.components);
+  const components = useAppSelector(
+    (state) => state.design.components,
+  );
+
+  const model = useAppSelector(
+    (state) => state.design.model,
+  );
+
   const selectedComponent = useAppSelector(
     (state) => state.editor.selectedComponent,
   );
+
+  const SneakerSvg = sneakerModels[model]?.component;
 
   const sneakerStyles = {
     "--upper-color": components.upper,
@@ -25,7 +38,15 @@ function SneakerPreview() {
     "--selected-component": selectedComponent ?? "none",
   } as CSSProperties;
 
-  const handleSneakerClick = (event: MouseEvent<SVGSVGElement>) => {
+  const isSneakerComponent = (
+    value: string,
+  ): value is SneakerComponent => {
+    return value in components;
+  };
+
+  const handleSneakerClick = (
+    event: MouseEvent<SVGSVGElement>,
+  ) => {
     const target = event.target as SVGElement;
 
     const id = target.id;
@@ -40,16 +61,16 @@ function SneakerPreview() {
     }
   };
 
-  const isSneakerComponent = (value: string): value is SneakerComponent => {
-    return value in components;
-  };
-
   return (
-    <div className={`sneaker-canvas selected-${selectedComponent ?? "none"}`}>
+    <div
+      className={`sneaker-canvas selected-${selectedComponent ?? "none"}`}
+    >
       <SneakerSvg
         style={sneakerStyles}
         onClick={handleSneakerClick}
-        data-selected-component={selectedComponent ?? ""}
+        data-selected-component={
+          selectedComponent ?? ""
+        }
       />
     </div>
   );

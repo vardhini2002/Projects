@@ -1,4 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { SneakerModel } from "../data/sneakerModels";
+import type { SneakerMaterial } from "../data/materials";
 
 export type SneakerComponent =
   | "upper"
@@ -11,8 +13,9 @@ export type SneakerComponent =
   | "logo";
 
 interface DesignState {
-  model: string;
+  model: SneakerModel;
   components: Record<SneakerComponent, string>;
+  materials: Record<SneakerComponent, SneakerMaterial>;
   past: Record<SneakerComponent, string>[];
   future: Record<SneakerComponent, string>[];
 }
@@ -29,6 +32,16 @@ const initialState: DesignState = {
     laces: "#171717",
     toe: "#EEEEEE",
     logo: "#171717",
+  },
+  materials: {
+    upper: "mesh",
+    heel: "mesh",
+    tongue: "mesh",
+    midsole: "rubber",
+    outsole: "rubber",
+    laces: "mesh",
+    toe: "mesh",
+    logo: "leather",
   },
   past: [],
   future: [],
@@ -69,6 +82,24 @@ const designSlice = createSlice({
       state.future = [];
     },
 
+    setModel: (
+      state,
+      action: PayloadAction<SneakerModel>,
+    ) => {
+      state.model = action.payload;
+    },
+
+    setComponentMaterial: (
+      state,
+      action: PayloadAction<{
+        component: SneakerComponent;
+        material: SneakerMaterial;
+      }>,
+    ) => {
+      state.materials[action.payload.component] =
+        action.payload.material;
+    },
+
     undo: (state) => {
       if (state.past.length > 0) {
         const previousState = state.past.pop()!;
@@ -92,7 +123,7 @@ const designSlice = createSlice({
   },
 });
 
-export const { setComponentColor, loadDesign, resetDesign, undo, redo } =
+export const { setComponentColor, loadDesign, resetDesign, undo, redo, setModel, setComponentMaterial } =
   designSlice.actions;
 
 export default designSlice.reducer;
